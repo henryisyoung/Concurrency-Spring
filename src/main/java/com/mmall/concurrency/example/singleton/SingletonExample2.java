@@ -2,22 +2,18 @@ package com.mmall.concurrency.example.singleton;
 
 import com.mmall.concurrency.annoations.ThreadSafe;
 
-/**
- * 饿汉模式
- * 单例实例在类装载时进行创建
- */
 @ThreadSafe
 public class SingletonExample2 {
 
-    // 私有构造函数
+    // private constructor
     private SingletonExample2() {
 
     }
 
-    // 单例对象
+    // singleton instance
     private static SingletonExample2 instance = new SingletonExample2();
 
-    // 静态的工厂方法
+    //static factory method to get the static instance
     public static SingletonExample2 getInstance() {
         return instance;
     }

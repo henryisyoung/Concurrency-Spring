@@ -4,32 +4,30 @@ import com.mmall.concurrency.annoations.Recommend;
 import com.mmall.concurrency.annoations.ThreadSafe;
 
 /**
- * 枚举模式：最安全
+ * enum pattern is safest
  */
 @ThreadSafe
 @Recommend
 public class SingletonExample7 {
-
-    // 私有构造函数
     private SingletonExample7() {
 
     }
 
-    public static SingletonExample7 getInstance() {
-        return Singleton.INSTANCE.getInstance();
+    private static SingletonExample7 getInstance() {
+        return Singleton.INSTANCE.getSingleton();
     }
 
-    private enum Singleton {
+    private enum Singleton{
         INSTANCE;
 
         private SingletonExample7 singleton;
 
-        // JVM保证这个方法绝对只调用一次
+        //JVM guarantee it is used only once
         Singleton() {
             singleton = new SingletonExample7();
         }
 
-        public SingletonExample7 getInstance() {
+        public SingletonExample7 getSingleton() {
             return singleton;
         }
     }

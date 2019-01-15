@@ -8,17 +8,14 @@ import lombok.extern.slf4j.Slf4j;
 @NotThreadSafe
 @NotRecommend
 public class Escape {
-
-    private int thisCanBeEscape = 0;
-
-    public Escape () {
+    private int thisCanBeEscaped = 0;
+    public Escape(){
         new InnerClass();
     }
 
-    private class InnerClass {
-
+    public class InnerClass {
         public InnerClass() {
-            log.info("{}", Escape.this.thisCanBeEscape);
+            log.info("{}", Escape.this.thisCanBeEscaped);
         }
     }
 

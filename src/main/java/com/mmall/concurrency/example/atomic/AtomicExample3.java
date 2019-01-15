@@ -14,36 +14,36 @@ import java.util.concurrent.atomic.LongAdder;
 @ThreadSafe
 public class AtomicExample3 {
 
-    // 请求总数
-    public static int clientTotal = 5000;
-
-    // 同时并发执行的线程数
+    // Total number of thread for requesting
     public static int threadTotal = 200;
 
-    public static LongAdder count = new LongAdder();
+    // Total number of requesting
+    public static int clientTotal = 5000;
 
-    public static void main(String[] args) throws Exception {
-        ExecutorService executorService = Executors.newCachedThreadPool();
+    public static LongAdder counter = new LongAdder();
+
+    public static void main(String[] args) throws InterruptedException {
+        ExecutorService executorServicecutors = Executors.newCachedThreadPool();
         final Semaphore semaphore = new Semaphore(threadTotal);
         final CountDownLatch countDownLatch = new CountDownLatch(clientTotal);
-        for (int i = 0; i < clientTotal ; i++) {
-            executorService.execute(() -> {
+        for(int i = 0; i < clientTotal; i++){
+            executorServicecutors.execute(() -> {
                 try {
                     semaphore.acquire();
                     add();
                     semaphore.release();
                 } catch (Exception e) {
-                    log.error("exception", e);
+                    log.error("exception",e);
                 }
                 countDownLatch.countDown();
             });
         }
         countDownLatch.await();
-        executorService.shutdown();
-        log.info("count:{}", count);
+        log.info("count:{}",counter);
     }
 
-    private static void add() {
-        count.increment();
+    private static void add(){
+        counter.increment();
     }
+
 }
